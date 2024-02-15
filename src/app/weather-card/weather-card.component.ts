@@ -33,8 +33,8 @@ data = {
     if (this.cityName) {
       this.weatherService.fetchData(this.cityName).subscribe({
         next:(data: any)=>{
-          this.data.temp = data.main.temp;
-          this.data.feelsLike = data.main.feels_like;
+          this.data.temp = this.convertKelvinToCelsius(data.main.temp);
+          this.data.feelsLike = this.convertKelvinToCelsius(data.main.feels_like);
           this.data.pressure = data.main.pressure;
           this.data.humidity = data.main.humidity;
           this.data.city = data.name;
@@ -48,5 +48,8 @@ data = {
         }
       })
     }
+  }
+  convertKelvinToCelsius(kelvin: number): string {
+    return (kelvin - 273.15).toFixed(2);
   }
 }
